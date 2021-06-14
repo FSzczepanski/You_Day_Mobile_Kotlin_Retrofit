@@ -5,7 +5,7 @@ import android.util.Log
 import com.example.yourdaymobilekotlin.data.entities.Todo
 import com.example.yourdaymobilekotlin.data.entities.TodoRequest
 import com.example.yourdaymobilekotlin.utilities.OnActionDone
-import com.example.yourdaymobilekotlin.ui.mainpage.TodoApiClient
+import com.example.yourdaymobilekotlin.data.ApiClients.TodoApiClient
 import com.example.yourdaymobilekotlin.ui.mainpage.TodosCallback
 import com.example.yourdaymobilekotlin.utilities.SessionManager
 import retrofit2.Call
@@ -35,8 +35,10 @@ class RepositoryTodos( context: Context) {
 
                     override fun onResponse(call: Call<ArrayList<Todo>>, response: Response<ArrayList<Todo>>) {
                         Log.e("SuccesfullyFetchedTodosList",response.toString()+ " / "+response.body().toString())
-                        todos = response.body()!!
-                        todosCallback.onCallback(todos)
+                        if(response.code().equals(200)){
+                            todos = response.body()!!
+                            todosCallback.onCallback(todos)
+                        }
                     }
 
                 })
@@ -47,12 +49,12 @@ class RepositoryTodos( context: Context) {
         var obj: TodoRequest = TodoRequest(todoText)
 
         client.addTodo(obj = obj,token = "${sessionManager.fetchAuthToken()}")
-                .enqueue(object : ArrayList<Object>(), retrofit2.Callback<Object>{
-                    override fun onFailure(call: Call<Object>, t: Throwable) {
+                .enqueue(object : ArrayList<Any>(), retrofit2.Callback<Any>{
+                    override fun onFailure(call: Call<Any>, t: Throwable) {
                         Log.e("onFailureAddingTodo",t.toString())
                     }
 
-                    override fun onResponse(call: Call<Object>, response: Response<Object>) {
+                    override fun onResponse(call: Call<Any>, response: Response<Any>) {
                         Log.e("SuccesfullyAddedTodo",response.toString()+ " / "+response.body().toString())
                         onActionDone.onDone()
                     }
@@ -62,12 +64,12 @@ class RepositoryTodos( context: Context) {
 
 
     fun deleteTodo(id: String, onActionDone: OnActionDone){
-        client.deleteTodo(id = id,token = "${sessionManager.fetchAuthToken()}").enqueue(object : ArrayList<Object>(), retrofit2.Callback<Object>{
-            override fun onFailure(call: Call<Object>, t: Throwable) {
+        client.deleteTodo(id = id,token = "${sessionManager.fetchAuthToken()}").enqueue(object : ArrayList<Any>(), retrofit2.Callback<Any>{
+            override fun onFailure(call: Call<Any>, t: Throwable) {
                 Log.e("onFailureDeletingTodo",t.toString()+"  " +call.toString())
             }
 
-            override fun onResponse(call: Call<Object>, response: Response<Object>) {
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
                 Log.e("SuccesfullyDeletedTodo",response.toString()+ " / "+response.body().toString())
                 onActionDone.onDone()
             }
@@ -81,12 +83,12 @@ class RepositoryTodos( context: Context) {
         var obj: TodoRequest = TodoRequest(todoText)
 
         client.updateTodo(id = id,obj = obj,token = "${sessionManager.fetchAuthToken()}")
-                .enqueue(object : ArrayList<Object>(), retrofit2.Callback<Object>{
-                    override fun onFailure(call: Call<Object>, t: Throwable) {
+                .enqueue(object : ArrayList<Any>(), retrofit2.Callback<Any>{
+                    override fun onFailure(call: Call<Any>, t: Throwable) {
                         Log.e("onFailureEditingTodo",t.toString())
                     }
 
-                    override fun onResponse(call: Call<Object>, response: Response<Object>) {
+                    override fun onResponse(call: Call<Any>, response: Response<Any>) {
                         Log.e("SuccesfullyEditedTodo",response.toString()+ " / "+response.body().toString())
                         onActionDone.onDone()
                     }

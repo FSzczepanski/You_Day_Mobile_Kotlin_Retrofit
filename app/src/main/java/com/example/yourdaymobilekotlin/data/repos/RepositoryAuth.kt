@@ -4,11 +4,8 @@ import android.content.Context
 import android.util.Log
 import com.example.yourdaymobilekotlin.data.entities.LoginRequest
 import com.example.yourdaymobilekotlin.data.entities.LoginResponse
-import com.example.yourdaymobilekotlin.data.entities.Todo
-import com.example.yourdaymobilekotlin.ui.auth.AuthApiClient
+import com.example.yourdaymobilekotlin.data.ApiClients.AuthApiClient
 import com.example.yourdaymobilekotlin.ui.auth.AuthCallback
-import com.example.yourdaymobilekotlin.ui.mainpage.TodoApiClient
-import com.example.yourdaymobilekotlin.utilities.OnActionDone
 import com.example.yourdaymobilekotlin.utilities.SessionManager
 import retrofit2.Call
 import retrofit2.Response

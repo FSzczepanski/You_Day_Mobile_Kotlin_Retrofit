@@ -1,9 +1,7 @@
-package com.example.yourdaymobilekotlin.ui.auth
+package com.example.yourdaymobilekotlin.data.ApiClients
 
 import com.example.yourdaymobilekotlin.data.entities.LoginRequest
 import com.example.yourdaymobilekotlin.data.entities.LoginResponse
-import com.example.yourdaymobilekotlin.data.entities.TodoRequest
-import com.example.yourdaymobilekotlin.ui.mainpage.TodoApiClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

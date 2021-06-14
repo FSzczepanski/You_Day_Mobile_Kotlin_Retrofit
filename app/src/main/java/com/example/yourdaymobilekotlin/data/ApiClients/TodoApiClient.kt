@@ -1,8 +1,7 @@
-package com.example.yourdaymobilekotlin.ui.mainpage
+package com.example.yourdaymobilekotlin.data.ApiClients
 
 import com.example.yourdaymobilekotlin.data.entities.Todo
 import com.example.yourdaymobilekotlin.data.entities.TodoRequest
-import io.reactivex.Completable
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -12,9 +11,9 @@ import retrofit2.http.*
 
 interface TodoApiClient {
     @GET("note") fun getTodos(@Header("auth-token") token: String): Call<java.util.ArrayList<Todo>>
-    @POST("note") fun addTodo(@Body obj: TodoRequest, @Header("auth-token") token: String): Call<Object>
-    @DELETE("note/{id}") fun deleteTodo(@Path("id") id: String,@Header("auth-token") token: String): Call<Object>
-    @PATCH("note/{id}") fun updateTodo(@Path("id")id: String, @Body obj: TodoRequest,@Header("auth-token") token: String): Call<Object>
+    @POST("note") fun addTodo(@Body obj: TodoRequest, @Header("auth-token") token: String): Call<Any>
+    @DELETE("note/{id}") fun deleteTodo(@Path("id") id: String,@Header("auth-token") token: String): Call<Any>
+    @PATCH("note/{id}") fun updateTodo(@Path("id")id: String, @Body obj: TodoRequest,@Header("auth-token") token: String): Call<Any>
 
     companion object {
 

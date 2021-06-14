@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.yourdaymobilekotlin.MainActivity
 import com.example.yourdaymobilekotlin.R
 import com.example.yourdaymobilekotlin.data.entities.Todo
+import com.example.yourdaymobilekotlin.ui.mainpage.dialogs.AddNewTodoDialog
 import com.example.yourdaymobilekotlin.utilities.OnActionDone
 import com.example.yourdaymobilekotlin.utilities.ProgressBarInit
 import com.example.yourdaymobilekotlin.utilities.TabLayoutDisabler
@@ -45,7 +46,7 @@ class MainPageFragment : Fragment(),TabLayoutDisabler, ProgressBarInit {
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
         context?.let { viewModel.setContext(it) }
         setUpList()
-        openAddTodoDialog()
+        setupAddTodoDialog()
     }
 
     private fun setUpList(){
@@ -58,7 +59,7 @@ class MainPageFragment : Fragment(),TabLayoutDisabler, ProgressBarInit {
             viewModel.getTodosList(object: TodosCallback {
                 override fun onCallback(todos: java.util.ArrayList<Todo>) {
                     todosList = todos
-                    adapter = context?.let { TodoAdapter(it,viewModel, todosList,object:OnActionDone{
+                    adapter = context?.let { TodoAdapter(it,viewModel, parentFragmentManager, todosList,object:OnActionDone{
                         override fun onDone() {
                             setUpList()
                         }
@@ -73,7 +74,7 @@ class MainPageFragment : Fragment(),TabLayoutDisabler, ProgressBarInit {
 
 
 
-    private fun openAddTodoDialog(){
+    private fun setupAddTodoDialog(){
         val addButton: FloatingActionButton = root.findViewById(R.id.addNewTodo)
         addButton.setOnClickListener {
             dialog = AddNewTodoDialog(viewModel, object : OnActionDone {
@@ -85,6 +86,9 @@ class MainPageFragment : Fragment(),TabLayoutDisabler, ProgressBarInit {
             dialog.show(parentFragmentManager, "DialogFragment")
         }
     }
+
+
+
 
     override fun hideTabLayout() {
         TODO("Not yet implemented")

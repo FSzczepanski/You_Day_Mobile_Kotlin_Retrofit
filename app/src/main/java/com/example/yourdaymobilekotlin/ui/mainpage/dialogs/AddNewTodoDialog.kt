@@ -1,7 +1,6 @@
-package com.example.yourdaymobilekotlin.ui.mainpage
+package com.example.yourdaymobilekotlin.ui.mainpage.dialogs
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.yourdaymobilekotlin.R
+import com.example.yourdaymobilekotlin.ui.mainpage.MainPageViewModel
 import com.example.yourdaymobilekotlin.utilities.OnActionDone
 
 class AddNewTodoDialog(mViewModel: MainPageViewModel, onActionDone: OnActionDone) : DialogFragment() {
