@@ -89,7 +89,7 @@
                 android:layout_height="110dp"
                 android:layout_marginLeft="15dp"
                 android:layout_toRightOf="@+id/linear"
-                android:background="@layout/layout_rounded"
+                android:background="@drawable/layout_rounded"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -101,7 +101,6 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:src="@drawable/ic_sunny" />
 
                     <TextView
@@ -121,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="miasto"
+                    android:text="@string/city"
                     android:textColor="@color/black"
                     android:textSize="17sp" />
                 <TextView
@@ -129,30 +128,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="weather desc"
+                    android:text="@string/weather_desc"
 
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:layout_alignBottom="@+id/linear"-->
-        <!--            android:orientation="vertical">-->
-        <!--            <View-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="3dp"-->
-        <!--                android:layout_marginTop="30dp"-->
-        <!--                android:background="@color/accent" />-->
 
-        <!--&lt;!&ndash;            <ImageView&ndash;&gt;-->
-        <!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
-        <!--&lt;!&ndash;                android:layout_height="114dp"&ndash;&gt;-->
-        <!--&lt;!&ndash;                android:layout_gravity="bottom"&ndash;&gt;-->
-        <!--&lt;!&ndash;                android:src="@drawable/wall2" />&ndash;&gt;-->
-
-        <!--        </LinearLayout>-->
     </LinearLayout>
 
 

@@ -49,4 +49,14 @@ class MainPageViewModel : ViewModel() {
 
         })
     }
+
+    fun editTodo(id: String, todoText: String, onActionDone: OnActionDone) {
+        repositoryTodos.editTodo(id,todoText,object: OnActionDone{
+            override fun onDone() {
+                onActionDone.onDone()
+            }
+
+        })
+
+    }
 }

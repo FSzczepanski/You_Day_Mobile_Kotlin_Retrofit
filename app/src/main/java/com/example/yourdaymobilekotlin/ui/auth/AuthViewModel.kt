@@ -18,12 +18,11 @@ class AuthViewModel : ViewModel() {
         repositoryAuth = RepositoryAuth(context)
     }
 
-    fun login(email: String, password: String, onActionDone: OnActionDone){
-        repositoryAuth.login(email,password, object: OnActionDone{
-            override fun onDone() {
-                onActionDone.onDone()
+    fun login(email: String, password: String, authCallback: AuthCallback){
+        repositoryAuth.login(email,password, object: AuthCallback{
+            override fun onCallback(loggedIn: Boolean) {
+                authCallback.onCallback(loggedIn)
             }
-
         })
 
     }

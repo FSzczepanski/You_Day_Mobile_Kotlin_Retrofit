@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
-                    android:text="andrzej33"
+                    android:text="andrzej"
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     android:textStyle="italic"

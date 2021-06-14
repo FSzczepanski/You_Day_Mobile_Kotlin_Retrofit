@@ -30,10 +30,11 @@ class RepositoryTodos( context: Context) {
         client.getTodos(token = "${sessionManager.fetchAuthToken()}")
                 .enqueue(object : java.util.ArrayList<Todo>(), retrofit2.Callback<java.util.ArrayList<Todo>> {
                     override fun onFailure(call: Call<ArrayList<Todo>>, t: Throwable) {
-                        Log.e("error",call.toString() + "   "+t.toString())
+                        Log.e("onFailureTodosList",call.toString() + " / "+t.toString())
                     }
 
                     override fun onResponse(call: Call<ArrayList<Todo>>, response: Response<ArrayList<Todo>>) {
+                        Log.e("SuccesfullyFetchedTodosList",response.toString()+ " / "+response.body().toString())
                         todos = response.body()!!
                         todosCallback.onCallback(todos)
                     }
@@ -46,13 +47,13 @@ class RepositoryTodos( context: Context) {
         var obj: TodoRequest = TodoRequest(todoText)
 
         client.addTodo(obj = obj,token = "${sessionManager.fetchAuthToken()}")
-                .enqueue(object : ArrayList<Todo>(), retrofit2.Callback<Object>{
+                .enqueue(object : ArrayList<Object>(), retrofit2.Callback<Object>{
                     override fun onFailure(call: Call<Object>, t: Throwable) {
-                        Log.e("failure",t.toString())
+                        Log.e("onFailureAddingTodo",t.toString())
                     }
 
                     override fun onResponse(call: Call<Object>, response: Response<Object>) {
-                        Log.e("good",response.toString()+ "    "+response.body().toString())
+                        Log.e("SuccesfullyAddedTodo",response.toString()+ " / "+response.body().toString())
                         onActionDone.onDone()
                     }
 
@@ -61,12 +62,13 @@ class RepositoryTodos( context: Context) {
 
 
     fun deleteTodo(id: String, onActionDone: OnActionDone){
-        client.deleteTodo(id = id).enqueue(object : ArrayList<Object>(), retrofit2.Callback<Object>{
+        client.deleteTodo(id = id,token = "${sessionManager.fetchAuthToken()}").enqueue(object : ArrayList<Object>(), retrofit2.Callback<Object>{
             override fun onFailure(call: Call<Object>, t: Throwable) {
-                Log.e("error",t.toString()+"  " +call.toString())
+                Log.e("onFailureDeletingTodo",t.toString()+"  " +call.toString())
             }
 
             override fun onResponse(call: Call<Object>, response: Response<Object>) {
+                Log.e("SuccesfullyDeletedTodo",response.toString()+ " / "+response.body().toString())
                 onActionDone.onDone()
             }
 
@@ -75,8 +77,21 @@ class RepositoryTodos( context: Context) {
     }
 
 
-    fun editTodo(){
+    fun editTodo(id:String ,todoText: String, onActionDone: OnActionDone){
+        var obj: TodoRequest = TodoRequest(todoText)
 
+        client.updateTodo(id = id,obj = obj,token = "${sessionManager.fetchAuthToken()}")
+                .enqueue(object : ArrayList<Object>(), retrofit2.Callback<Object>{
+                    override fun onFailure(call: Call<Object>, t: Throwable) {
+                        Log.e("onFailureEditingTodo",t.toString())
+                    }
+
+                    override fun onResponse(call: Call<Object>, response: Response<Object>) {
+                        Log.e("SuccesfullyEditedTodo",response.toString()+ " / "+response.body().toString())
+                        onActionDone.onDone()
+                    }
+
+                })
     }
 
 

@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:hint="email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/loginPassword"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:hint="password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/loginForgotPassword"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="login"
+            android:text="@string/login"
             android:textAllCaps="false" />
 
     </RelativeLayout>
@@ -84,7 +84,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"
 
-        android:text="I forgot password"
+        android:text="@string/forgot_password"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.023"

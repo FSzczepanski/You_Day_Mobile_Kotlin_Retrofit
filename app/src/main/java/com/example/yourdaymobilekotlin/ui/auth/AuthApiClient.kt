@@ -1,6 +1,7 @@
 package com.example.yourdaymobilekotlin.ui.auth
 
 import com.example.yourdaymobilekotlin.data.entities.LoginRequest
+import com.example.yourdaymobilekotlin.data.entities.LoginResponse
 import com.example.yourdaymobilekotlin.data.entities.TodoRequest
 import com.example.yourdaymobilekotlin.ui.mainpage.TodoApiClient
 import retrofit2.Call
@@ -10,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 interface AuthApiClient {
-    @POST("auth/login") fun login(@Body obj: LoginRequest): Call<Object>
+    @POST("auth/login") fun login(@Body obj: LoginRequest): Call<LoginResponse>
 
 
     companion object {
@@ -20,7 +21,7 @@ interface AuthApiClient {
             val retrofit = Retrofit.Builder()
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl("http://localhost:3000/")
+                    .baseUrl("http://192.168.0.12:3000/")
                     .build()
 
             return retrofit.create(AuthApiClient::class.java)

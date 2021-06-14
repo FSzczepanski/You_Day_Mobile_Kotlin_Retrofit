@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">YourDayMobile</string>
+    <string name="app_name">YourDayMobileKotlin</string>
+    <string name="powrot">Powrót</string>
+    <string name="user_name">Nazwa użytkownika</string>
+    <string name="logout">Wyloguj</string>
+    <string name="please_wait">Proszę czekać...</string>
+    <string name="email">Adres e-mail</string>
+    <string name="password">Hasło</string>
+    <string name="login">Zaloguj</string>
+    <string name="forgot_password">Zapomniałam/em hasła</string>
+    <string name="todo_description">Zadanie</string>
+    <string name="add">DODAJ</string>
+    <string name="cancel">POWRÓT</string>
+    <string name="delete">USUŃ</string>
+    <string name="edit">EDYTUJ</string>
+    <string name="city">miasto</string>
+    <string name="weather_desc">opis</string>
 </resources>

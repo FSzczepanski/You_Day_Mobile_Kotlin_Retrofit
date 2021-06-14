@@ -24,6 +24,7 @@ class AuthFragment : Fragment(),TabLayoutDisabler, ProgressBarInit{
     companion object {
         fun newInstance() = AuthFragment()
     }
+
     private lateinit var viewModel: AuthViewModel
     private lateinit var root: View
     private lateinit var sessionManager: SessionManager
@@ -45,7 +46,7 @@ class AuthFragment : Fragment(),TabLayoutDisabler, ProgressBarInit{
         viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
         context?.let { viewModel.setContext(it) }
         checkIfLoggedIn()
-        login();
+        setupLogin();
     }
 
     fun checkIfLoggedIn(){
@@ -57,7 +58,7 @@ class AuthFragment : Fragment(),TabLayoutDisabler, ProgressBarInit{
         }
     }
 
-    fun login(){
+    fun setupLogin(){
         var login:AppCompatButton =  root.findViewById(R.id.loginButton);
 
         login.setOnClickListener(View.OnClickListener {
@@ -81,10 +82,15 @@ class AuthFragment : Fragment(),TabLayoutDisabler, ProgressBarInit{
 
     fun signIn(email: String, password: String){
         showProgressBar()
-        viewModel.login(email,password, object: OnActionDone{
-            override fun onDone() {
-                findNavController().navigate(R.id.action_authFragment_to_mainPageFragment)
+        viewModel.login(email,password, object: AuthCallback{
+            override fun onCallback(loggedIn: Boolean) {
+                if(loggedIn){
+                    findNavController().navigate(R.id.action_authFragment_to_mainPageFragment)
+                }else{
+                    Toast.makeText(context, "Nieprawidłowe dane", Toast.LENGTH_LONG).show()
+                }
                 hideProgressBar()
+
             }
 
         })
