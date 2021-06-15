@@ -12,14 +12,12 @@ import com.example.yourdaymobilekotlin.R
 import com.example.yourdaymobilekotlin.ui.mainpage.MainPageViewModel
 import com.example.yourdaymobilekotlin.utilities.OnActionDone
 
-class AddNewTodoDialog(mViewModel: MainPageViewModel, onActionDone: OnActionDone) : DialogFragment() {
+class AddNewTodoDialog(mViewModel: MainPageViewModel) : DialogFragment() {
 
     private var  viewModel: MainPageViewModel = mViewModel
     private var todoDescription:String = ""
 
     private lateinit var root: View
-    private var onActionDone: OnActionDone = onActionDone
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
          root = inflater.inflate(R.layout.dialog_add_todo, container)
@@ -32,12 +30,7 @@ class AddNewTodoDialog(mViewModel: MainPageViewModel, onActionDone: OnActionDone
             if (todoDescription!="") {
 
 
-                viewModel.createTodo(todoDescription, object: OnActionDone {
-                    override fun onDone() {
-                        onActionDone.onDone()
-                    }
-
-                })
+                viewModel.createTodo(todoDescription)
                 this@AddNewTodoDialog.getDialog()?.cancel()
             } else {
                 Toast.makeText(requireContext().getApplicationContext(), "Wprowadź prawidłowe dane ", Toast.LENGTH_SHORT).show()

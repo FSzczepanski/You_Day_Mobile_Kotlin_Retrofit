@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,25 +52,23 @@ class MainPageFragment : Fragment(),TabLayoutDisabler, ProgressBarInit {
 
     private fun setUpList(){
         showProgressBar()
-
+        viewModel.getTodosList()
         todosRv= root.findViewById(R.id.todosRV)
         todosRv.layoutManager = LinearLayoutManager(context)
 
+        viewModel.todosLiveData.observe(viewLifecycleOwner, Observer {t->
+            run {
+                adapter = context?.let {
+                    TodoAdapter(requireContext(), viewModel, parentFragmentManager, t)
+                }!!
+                todosRv.adapter = adapter
+                hideProgressBar()
 
-            viewModel.getTodosList(object: TodosCallback {
-                override fun onCallback(todos: java.util.ArrayList<Todo>) {
-                    todosList = todos
-                    adapter = context?.let { TodoAdapter(it,viewModel, parentFragmentManager, todosList,object:OnActionDone{
-                        override fun onDone() {
-                            setUpList()
-                        }
+            }
+        })
 
-                    }) }!!
-                    todosRv.adapter = adapter
-                    hideProgressBar()
-                }
 
-            })
+
     }
 
 
@@ -77,12 +76,7 @@ class MainPageFragment : Fragment(),TabLayoutDisabler, ProgressBarInit {
     private fun setupAddTodoDialog(){
         val addButton: FloatingActionButton = root.findViewById(R.id.addNewTodo)
         addButton.setOnClickListener {
-            dialog = AddNewTodoDialog(viewModel, object : OnActionDone {
-                override fun onDone() {
-                    setUpList()
-                }
-
-            })
+            dialog = AddNewTodoDialog(viewModel)
             dialog.show(parentFragmentManager, "DialogFragment")
         }
     }

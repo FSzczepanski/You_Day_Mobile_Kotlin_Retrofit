@@ -14,11 +14,10 @@ import com.example.yourdaymobilekotlin.ui.mainpage.dialogs.EditTodoDialog
 import com.example.yourdaymobilekotlin.utilities.OnActionDone
 
 
-class TodoAdapter(val context: Context, viewModel: MainPageViewModel,fm: FragmentManager, todosList:java.util.ArrayList<Todo>, onActionDone: OnActionDone) :
+class TodoAdapter(val context: Context, viewModel: MainPageViewModel,fm: FragmentManager, todosList:java.util.ArrayList<Todo>) :
 RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
     private var todosList: java.util.ArrayList<Todo> = todosList
     private  var viewModel: MainPageViewModel = viewModel
-    private var onActionDone: OnActionDone = onActionDone
     private var fm: FragmentManager = fm
     private lateinit var dialog: EditTodoDialog
 
@@ -47,12 +46,7 @@ RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
 
         viewHolder.textView.text = todosList.get(position).text
         viewHolder.editButton.setOnClickListener(View.OnClickListener {
-            dialog = EditTodoDialog(todosList.get(position)._id, todosList.get(position).text, viewModel, object : OnActionDone {
-                override fun onDone() {
-                    onActionDone.onDone()
-                }
-
-            })
+            dialog = EditTodoDialog(todosList.get(position)._id, todosList.get(position).text, viewModel)
             dialog.show(fm, "DialogFragment")
         })
 

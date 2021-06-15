@@ -2,6 +2,7 @@ package com.example.yourdaymobilekotlin.ui.mainpage
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.yourdaymobilekotlin.data.repos.RepositoryTodos
 import com.example.yourdaymobilekotlin.data.entities.Todo
@@ -11,7 +12,7 @@ import java.util.ArrayList
 class MainPageViewModel : ViewModel() {
     private lateinit var context: Context;
 
-    private lateinit var todos: java.util.ArrayList<Todo>
+    val todosLiveData = MutableLiveData<ArrayList<Todo>>()
     private lateinit var repositoryTodos: RepositoryTodos
 
 
@@ -22,38 +23,38 @@ class MainPageViewModel : ViewModel() {
     }
 
 
-    fun getTodosList(todosCallback: TodosCallback) {
+    fun getTodosList() {
        repositoryTodos.getTodosList(object: TodosCallback {
            override fun onCallback(todos: ArrayList<Todo>) {
-               todosCallback.onCallback(todos)
+                todosLiveData.postValue(todos)
            }
 
        })
     }
 
-    fun createTodo(todoText: String, onActionDone: OnActionDone){
+    fun createTodo(todoText: String){
         repositoryTodos.addTodo(todoText, object: OnActionDone {
             override fun onDone() {
                 Log.e("added","added todo")
-                onActionDone.onDone()
+                getTodosList()
             }
 
         })
     }
 
-    fun deleteTodo(id: String, onActionDone: OnActionDone) {
+    fun deleteTodo(id: String) {
         repositoryTodos.deleteTodo(id,object: OnActionDone{
             override fun onDone() {
-                onActionDone.onDone()
+                getTodosList()
             }
 
         })
     }
 
-    fun editTodo(id: String, todoText: String, onActionDone: OnActionDone) {
+    fun editTodo(id: String, todoText: String) {
         repositoryTodos.editTodo(id,todoText,object: OnActionDone{
             override fun onDone() {
-                onActionDone.onDone()
+                getTodosList()
             }
 
         })

@@ -12,7 +12,7 @@ import com.example.yourdaymobilekotlin.R
 import com.example.yourdaymobilekotlin.ui.mainpage.MainPageViewModel
 import com.example.yourdaymobilekotlin.utilities.OnActionDone
 
-class EditTodoDialog (itemId: String, itemText: String, mViewModel: MainPageViewModel, onActionDone: OnActionDone) : DialogFragment() {
+class EditTodoDialog (itemId: String, itemText: String, mViewModel: MainPageViewModel) : DialogFragment() {
 
     private var  viewModel: MainPageViewModel = mViewModel
     private var todoDescription:String = ""
@@ -20,7 +20,6 @@ class EditTodoDialog (itemId: String, itemText: String, mViewModel: MainPageView
     private var itemText: String = itemText
 
     private lateinit var root: View
-    private var onActionDone: OnActionDone = onActionDone
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,12 +35,7 @@ class EditTodoDialog (itemId: String, itemText: String, mViewModel: MainPageView
         textViewEdit.setOnClickListener {
             todoDescription = editTextTodoDesc.text.toString()
             if (todoDescription!="") {
-                viewModel.editTodo(itemId,todoDescription, object: OnActionDone {
-                    override fun onDone() {
-                        onActionDone.onDone()
-                    }
-
-                })
+                viewModel.editTodo(itemId,todoDescription)
                 this@EditTodoDialog.getDialog()?.cancel()
             } else {
                 Toast.makeText(requireContext().getApplicationContext(), "Wprowadź prawidłowe dane ", Toast.LENGTH_SHORT).show()
@@ -50,13 +44,7 @@ class EditTodoDialog (itemId: String, itemText: String, mViewModel: MainPageView
 
         //Usuwanie zadania
         textViewDelete.setOnClickListener(View.OnClickListener {
-
-            viewModel.deleteTodo(itemId, object: OnActionDone{
-                override fun onDone() {
-                    onActionDone.onDone()
-                }
-
-            })
+            viewModel.deleteTodo(itemId)
             this@EditTodoDialog.getDialog()?.cancel()
         })
 
